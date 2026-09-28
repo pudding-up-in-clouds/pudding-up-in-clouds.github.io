@@ -129,12 +129,12 @@
 </head>
 <body>
 <main class="wrap">
-  <p class="label">Schwarzman Scholars ¬∑ 1:1&nbsp;coaching</p>
+  <p class="label">Schwarzman Scholars &#xB7; 1:1&nbsp;coaching</p>
   <h1>Get your application <span class="accent">interview-ready</span></h1>
-  <p class="lede">Hi, I'm Faye! I'm a Schwarzman Scholar (Cohort 10), and I'm so glad you're thinking of applying to the programme üôãüèª‚Äç‚ôÄÔ∏è My time at Tsinghua was one of the best years of my young adult life: I went off on a bunch of adventures (learnt how to ski, dive and dance Bollywood), said yes to opportunities I never expected (an internship at LinkedIn, a TEDxTHU talk), and left with beautiful memories and the best of friends.</p>
+  <p class="lede">Hi, I'm Faye! I'm a Schwarzman Scholar (Cohort 10), and I'm so glad you're thinking of applying to the programme &#x1F64B;&#x1F3FB;&#x200D;&#x2640;&#xFE0F; My time at Tsinghua was one of the best years of my young adult life: I went off on a bunch of adventures (learnt how to ski, dive and dance Bollywood), said yes to opportunities I never expected (an internship at LinkedIn, a TEDxTHU talk), and left with beautiful memories and the best of friends.</p>
   <p class="lede">If my videos have helped you, here's your chance to have me look at your application more closely or run you through a mock interview. I remember how daunting the application felt, so I'd love to help!</p>
-  <p class="lede">My coaching style is warm but honest: I'll tell you what's working, where your story needs more thought, and how to let your personality shine through ‚≠ê</p>
-  <p class="lede">Use the form below to book a one-to-one session with me üëá I can't wait to hear your story!</p>
+  <p class="lede">My coaching style is warm but honest: I'll tell you what's working, where your story needs more thought, and how to let your personality shine through &#x2B50;</p>
+  <p class="lede">Use the form below to book a one-to-one session with me &#x1F447; I can't wait to hear your story!</p>
 
   <section class="sessions" aria-label="Session types">
     <div class="session">
@@ -237,8 +237,8 @@
 
   <section class="thanks" id="thanks" tabindex="-1">
     <h2>Thank you!</h2>
-    <p>Your enquiry is in! I'll reach out soon with more details and to find a time for your session. Keep an eye on your inbox üëÄ (check spam or Promotions too!)</p>
-    <p>Chat soon!<br>Faye üíú</p>
+    <p>Your enquiry is in! I'll reach out soon with more details and to find a time for your session. Keep an eye on your inbox &#x1F440; (check spam or Promotions too!)</p>
+    <p>Chat soon!<br>Faye &#x1F49C;</p>
   </section>
 
 </main>
@@ -290,7 +290,7 @@
     if (!data.get("consent")) return fail("Please tick the box so I can keep your details to reply.", form.elements.consent);
 
     submitBtn.disabled = true;
-    submitBtn.textContent = "Sending‚Ä¶";
+    submitBtn.textContent = "Sending\u{2026}";
 
     if (ENDPOINT.startsWith("PASTE_")) {
       // Preview mode: no backend connected yet.
@@ -300,7 +300,7 @@
 
     statusEl.textContent = "This can take up to 30 seconds. Please keep this page open.";
     const slow = setTimeout(() => {
-      statusEl.textContent = "Still sending, nearly there‚Ä¶";
+      statusEl.textContent = "Still sending, nearly there\u{2026}";
     }, 20000);
     const timeout = new AbortController();
     const giveUp = setTimeout(() => timeout.abort(), 90000);
