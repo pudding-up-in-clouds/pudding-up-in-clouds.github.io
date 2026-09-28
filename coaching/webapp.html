@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schwarzman Coaching with Faye</title>
+<meta name="description" content="One-to-one Schwarzman Scholars application coaching and mock interviews with Faye Ng.">
+<style>
+  :root {
+    --navy: #032b5e;
+    --purple: #8226a0;
+    --cream: #f6f1f7;
+    --card: #ffffff;
+    --ink: #1d2433;
+    --muted: #5d6475;
+    --line: #ddd3e2;
+    --error: #b3261e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Avenir Next", Avenir, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 17px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 56px 16px 64px; }
+  .label {
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h1, h2 {
+    font-family: Didot, "Bodoni 72", "Playfair Display", Georgia, serif;
+    color: var(--navy);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0;
+  }
+  h1 { font-size: clamp(36px, 7vw, 54px); }
+  h2 { font-size: 30px; margin-bottom: 8px; }
+  .lede { font-size: 19px; margin: 20px 0 0; }
+  .accent { color: var(--purple); }
+
+  .sessions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 40px 0 40px; }
+  .session {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 22px 18px;
+  }
+  .session h3 { margin: 0 0 6px; color: var(--purple); font-size: 18px; }
+  .session p { margin: 0; color: var(--muted); font-size: 16px; }
+  .note { color: var(--muted); font-size: 16px; margin: -28px 0 48px; }
+
+  form {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+  .intro { color: var(--muted); margin: 0 0 24px; font-size: 16px; }
+  .field { margin-bottom: 20px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  label, legend { display: block; font-weight: 600; color: var(--navy); font-size: 15px; margin-bottom: 6px; padding: 0; }
+  .hint { font-weight: 400; color: var(--muted); }
+  input[type=text], input[type=email], input[type=tel], select, textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--purple); outline-offset: 1px; border-color: var(--purple); }
+  fieldset { border: 0; margin: 0 0 20px; padding: 0; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choices label {
+    font-weight: 500;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin: 0;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .choices input { position: absolute; opacity: 0; pointer-events: none; }
+  .choices input:checked + span { color: #fff; }
+  .choices label:has(input:checked) { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .choices label:has(input:focus-visible) { outline: 2px solid var(--purple); outline-offset: 2px; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; color: var(--muted); font-size: 14px; }
+  .consent input { margin-top: 5px; }
+  .hp { position: absolute; left: -9999px; }
+  button {
+    font: inherit;
+    font-weight: 600;
+    background: var(--purple);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 13px 26px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover { background: #6c1f86; }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .status { margin-top: 14px; font-size: 15px; }
+  .status.error { color: var(--error); }
+  .thanks { display: none; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 32px 24px; }
+  .thanks p { margin: 12px 0 0; }
+  .thanks:focus { outline: none; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 600px) {
+    .wrap { padding-top: 36px; }
+    .label { font-size: 15px; }
+    .sessions, .row { grid-template-columns: 1fr; }
+    .row { gap: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="label">Schwarzman Scholars ¬∑ 1:1&nbsp;coaching</p>
+  <h1>Get your application <span class="accent">interview-ready</span></h1>
+  <p class="lede">Hi, I'm Faye! I'm a Schwarzman Scholar (Cohort 10), and I'm so glad you're thinking of applying to the programme üôãüèª‚Äç‚ôÄÔ∏è My time at Tsinghua was one of the best years of my young adult life: I went off on a bunch of adventures (learnt how to ski, dive and dance Bollywood), said yes to opportunities I never expected (an internship at LinkedIn, a TEDxTHU talk), and left with beautiful memories and the best of friends.</p>
+  <p class="lede">If my videos have helped you, here's your chance to have me look at your application more closely or run you through a mock interview. I remember how daunting the application felt, so I'd love to help!</p>
+  <p class="lede">My coaching style is warm but honest: I'll tell you what's working, where your story needs more thought, and how to let your personality shine through ‚≠ê</p>
+  <p class="lede">Use the form below to book a one-to-one session with me üëá I can't wait to hear your story!</p>
+
+  <section class="sessions" aria-label="Session types">
+    <div class="session">
+      <h3>Application coaching</h3>
+      <p>We work through your application together: your story and your "why", the leadership essay, the statement of purpose, short answers, or wherever you're stuck.</p>
+    </div>
+    <div class="session">
+      <h3>Mock interview</h3>
+      <p>A practice interview run as close to the real day as I can make it, then direct feedback on your answers, your delivery and what to tighten.</p>
+    </div>
+  </section>
+
+  <form id="enquiry" novalidate>
+    <h2>Tell me about yourself</h2>
+    <p class="intro">Sessions run for 45 or 60 minutes over video call. Fill in the form and I'll reach out with my rates and schedule a date depending on your availability.</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="200">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="phone">Phone / WhatsApp <span class="hint">(with country code)</span></label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="+65 9123 4567">
+      </div>
+      <div class="field">
+        <label for="location">Where you're based</label>
+        <input id="location" name="location" type="text" required maxlength="120" placeholder="e.g. London, UK">
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>I'm interested in</legend>
+      <div class="choices">
+        <label><input type="radio" name="sessionType" value="Application coaching" required><span>Application coaching</span></label>
+        <label><input type="radio" name="sessionType" value="Mock interview"><span>Mock interview</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Session length</legend>
+      <div class="choices">
+        <label><input type="radio" name="length" value="45 minutes" required><span>45 minutes</span></label>
+        <label><input type="radio" name="length" value="60 minutes"><span>60 minutes</span></label>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="stage">Where are you in the process?</label>
+      <select id="stage" name="stage" required>
+        <option value="">Choose one</option>
+        <option>Thinking about applying next cycle</option>
+        <option>Writing my application now</option>
+        <option>Submitted, waiting to hear back</option>
+        <option>Invited to interview</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="goals">What do you hope to get out of the session?</label>
+      <textarea id="goals" name="goals" required maxlength="3000" placeholder="e.g. My leadership essay feels flat and I don't know why"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="questions">Any specific questions?</label>
+      <textarea id="questions" name="questions" required maxlength="3000"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="source">How did you find me?</label>
+      <select id="source" name="source" required>
+        <option value="">Choose one</option>
+        <option>YouTube</option>
+        <option>LinkedIn</option>
+        <option>A friend</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="hp" aria-hidden="true">
+      <label for="website">Leave this empty</label>
+      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label class="consent"><input type="checkbox" name="consent" value="yes" required>
+        I'm happy for Faye to keep these details to reply to me about coaching. They won't be shared or used for anything else.</label>
+    </div>
+
+    <button type="submit" id="submit">Send enquiry</button>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </form>
+
+  <section class="thanks" id="thanks" tabindex="-1">
+    <h2>Thank you!</h2>
+    <p>Your enquiry is in! I'll reach out soon with more details and to find a time for your session. Keep an eye on your inbox üëÄ (check spam or Promotions too!)</p>
+    <p>Chat soon!<br>Faye üíú</p>
+  </section>
+
+</main>
+
+<script>
+  // Paste the Google Apps Script web app URL here after deploying (see SETUP.md).
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbzwPFalmGUQRvbJj0MkIvTSUmN_MeDbkFaejiEdKqPB7Rq6LKAoFpRvpQJyu3hLsm5A/exec";
+
+  const form = document.getElementById("enquiry");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submit");
+
+  function fail(msg, el) {
+    statusEl.textContent = msg;
+    statusEl.className = "status error";
+    if (el) el.focus();
+  }
+
+  function showThanks() {
+    form.style.display = "none";
+    const t = document.getElementById("thanks");
+    t.style.display = "block";
+    t.focus();
+    t.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "status";
+
+    const data = new FormData(form);
+    const required = [
+      ["name", "Please add your name."],
+      ["email", "Please add your email."],
+      ["phone", "Please add your phone or WhatsApp number."],
+      ["location", "Please say where you're based, so I can suggest times in your time zone."],
+      ["sessionType", "Please choose a session type."],
+      ["length", "Please choose a session length."],
+      ["stage", "Please say where you are in the process."],
+      ["goals", "Please tell me what you hope to get out of the session."],
+      ["questions", "Please add any questions you have for me."],
+      ["source", "Please tell me how you found me."],
+    ];
+    for (const [key, msg] of required) {
+      if (!String(data.get(key) || "").trim()) return fail(msg, form.elements[key][0] || form.elements[key]);
+    }
+    if (!form.elements.email.checkValidity()) return fail("That email address doesn't look right.", form.elements.email);
+    if (!data.get("consent")) return fail("Please tick the box so I can keep your details to reply.", form.elements.consent);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending‚Ä¶";
+
+    if (ENDPOINT.startsWith("PASTE_")) {
+      // Preview mode: no backend connected yet.
+      setTimeout(showThanks, 400);
+      return;
+    }
+
+    statusEl.textContent = "This can take up to 30 seconds. Please keep this page open.";
+    const slow = setTimeout(() => {
+      statusEl.textContent = "Still sending, nearly there‚Ä¶";
+    }, 20000);
+    const timeout = new AbortController();
+    const giveUp = setTimeout(() => timeout.abort(), 90000);
+
+    try {
+      const res = await fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(data), signal: timeout.signal });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error || "Something went wrong");
+      showThanks();
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send enquiry";
+      fail("Sorry, that didn't go through. Please try again in a minute, or message me on YouTube or LinkedIn.");
+    } finally {
+      clearTimeout(slow);
+      clearTimeout(giveUp);
+    }
+  });
+</script>
+</body>
+</html>
