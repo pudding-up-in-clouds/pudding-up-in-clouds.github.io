@@ -305,9 +305,24 @@
     const timeout = new AbortController();
     const giveUp = setTimeout(() => timeout.abort(), 90000);
 
-    try {
+    // Google occasionally answers with an error page instead of the script's reply,
+    // so try up to three times before giving up.
+    const send = async () => {
       const res = await fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(data), signal: timeout.signal });
-      const out = await res.json();
+      return JSON.parse(await res.text());
+    };
+
+    try {
+      let out;
+      for (let attempt = 1; ; attempt++) {
+        try {
+          out = await send();
+          break;
+        } catch (err) {
+          if (attempt === 3 || timeout.signal.aborted) throw err;
+          await new Promise((r) => setTimeout(r, 2000));
+        }
+      }
       if (!out.ok) throw new Error(out.error || "Something went wrong");
       showThanks();
     } catch (err) {
