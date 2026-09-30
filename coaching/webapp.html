@@ -117,6 +117,8 @@
   .thanks { display: none; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 32px 24px; }
   .thanks p { margin: 12px 0 0; }
   .thanks:focus { outline: none; }
+  .thanks .ps { margin-top: 24px; font-size: 15px; color: var(--muted); }
+  .thanks a { color: var(--purple); overflow-wrap: anywhere; }
   footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
 
   @media (max-width: 600px) {
@@ -237,8 +239,10 @@
 
   <section class="thanks" id="thanks" tabindex="-1">
     <h2>Thank you!</h2>
-    <p>Your enquiry is in! I'll reach out soon with more details and to find a time for your session. Keep an eye on your inbox &#x1F440; (check spam or Promotions too!)</p>
+    <p>Your enquiry is in! I'll be in touch soon with more details and to schedule a time for your session.</p>
+    <p>Keep an eye on your inbox &#x1F440; (if nothing arrives, check your Spam or Promotions folder).</p>
     <p>Chat soon!<br>Faye &#x1F49C;</p>
+    <p class="ps">P.S. This page is still a work in progress. If you run into any issues, please write to me at <a id="contact" href="#">(email address)</a></p>
   </section>
 
 </main>
@@ -258,6 +262,13 @@
   }
 
   function showThanks() {
+    // The contact address is pieced together only when this box appears, so bots
+    // scanning the page's code for email addresses don't find one.
+    const addr = ["faye.ngyc", ["alumni", "schwarzmanscholars", "org"].join(".")].join(String.fromCharCode(64));
+    const link = document.getElementById("contact");
+    link.textContent = addr;
+    link.href = "mai" + "lto:" + addr;
+
     form.style.display = "none";
     const t = document.getElementById("thanks");
     t.style.display = "block";
